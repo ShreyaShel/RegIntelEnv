@@ -4,9 +4,9 @@ emoji: ⚖️
 colorFrom: indigo
 colorTo: purple
 sdk: docker
-sdk_version: "3.12"
-python_version: "3.12"
-app_file: dev.py
+sdk_version: "3.11"
+python_version: "3.11"
+app_file: app.py
 pinned: false
 ---
 
