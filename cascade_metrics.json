@@ -1,0 +1,16 @@
+[
+  {
+    "episode": 0,
+    "avg_reward": 0.0,
+    "coalitions": 4,
+    "drift_adaptations": 0,
+    "total_agents": 8
+  },
+  {
+    "episode": 1,
+    "avg_reward": 0.0,
+    "coalitions": 4,
+    "drift_adaptations": 0,
+    "total_agents": 8
+  }
+]

@@ -1,0 +1,28 @@
+spec_version: 1
+name: regintelenv
+display_name: RegIntelEnv - Regulatory Intelligence Environment
+description: >
+  An OpenEnv environment where AI agents analyze company processes against
+  new regulations and flag non-compliance. Supports multi-step reasoning
+  with continuous reward signals and suggestion-based actions.
+type: space
+runtime: fastapi
+app: server.app:app
+port: 7860
+
+metadata:
+  author: RegIntelEnv Team
+  version: 0.1.0
+  tags:
+    - compliance
+    - regulatory
+    - nlp
+    - reasoning
+    - rl
+  difficulty_levels:
+    - easy
+    - medium
+    - hard
+  tasks: 3
+  reward_type: continuous
+  action_type: suggestion_based

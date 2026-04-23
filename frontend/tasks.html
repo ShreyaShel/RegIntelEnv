@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>RegIntelEnv | Prism Tasks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "background": "#0e0e0f",
+                "surface": "#0e0e0f",
+                "surface-container": "#1a191b",
+                "surface-container-low": "#131314",
+                "surface-container-high": "#201f21",
+                "surface-container-highest": "#262627",
+                "surface-container-lowest": "#000000",
+                "primary": "#c59aff",
+                "primary-dim": "#9547f7",
+                "primary-container": "#ba88ff",
+                "secondary": "#00eefc",
+                "secondary-dim": "#00deec",
+                "tertiary": "#ff6adc",
+                "on-surface": "#ffffff",
+                "on-surface-variant": "#adaaab",
+                "on-primary-fixed": "#000000",
+                "outline-variant": "#484849",
+                "error": "#ff6e84"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-border-top {
+            border-top: 1px solid rgba(197, 154, 255, 0.3);
+        }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: rgba(14, 14, 15, 0.8);
+        }
+        body { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 min-h-screen">
+    <header class="bg-[#0e0e0f]/80 backdrop-blur-xl fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4 border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <h1 class="text-xl font-black tracking-widest text-white uppercase">RegIntelEnv</h1>
+        </div>
+        <nav class="hidden md:flex items-center gap-8 text-[10px] font-bold tracking-[0.2em] text-[#adaaab]">
+            <a class="hover:text-[#00eefc] transition-colors" href="/">DASHBOARD</a>
+            <a class="text-[#00eefc] transition-colors" href="/tasks.html">TASKS</a>
+            <a class="hover:text-[#9D50FF] transition-colors" href="#">INSIGHTS</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-[#adaaab] hover:text-[#9D50FF] transition-colors cursor-pointer">settings</span>
+        </div>
+    </header>
+
+    <main class="pt-24 pb-32 px-6 max-w-7xl mx-auto">
+        <div class="mb-12 relative">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <h1 class="text-[3.5rem] leading-[0.9] font-black tracking-tighter uppercase mb-4">PRISM TASKS</h1>
+                    <p class="text-on-surface-variant max-w-md text-body-md">Active regulatory protocols orchestration environment.</p>
+                </div>
+                <button class="px-8 py-3 bg-gradient-to-r from-primary to-primary-dim text-on-primary-fixed font-bold rounded-xl active:scale-95 transition-all shadow-[0_0_20px_rgba(157,80,255,0.3)]">
+                    NEW PROTOCOL
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div class="md:col-span-3 flex flex-col gap-6">
+                <div class="p-6 rounded-xl bg-surface-container-low glow-border-top">
+                    <span class="text-[10px] font-bold tracking-[0.1em] text-on-surface-variant uppercase mb-2 block">Agent Capacity</span>
+                    <div class="text-4xl font-black text-secondary mb-4">84%</div>
+                    <div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+                        <div class="h-full bg-secondary" style="width: 84%;"></div>
+                    </div>
+                </div>
+                <div class="p-6 rounded-xl bg-surface-container-low glow-border-top">
+                    <span class="text-[10px] font-bold tracking-[0.1em] text-on-surface-variant uppercase mb-2 block">Environment Drift</span>
+                    <div class="text-4xl font-black text-tertiary mb-4">0.12</div>
+                    <div class="flex gap-1">
+                        <div class="h-1 flex-1 bg-tertiary"></div>
+                        <div class="h-1 flex-1 bg-surface-container-highest"></div>
+                        <div class="h-1 flex-1 bg-surface-container-highest"></div>
+                        <div class="h-1 flex-1 bg-surface-container-highest"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="task-grid" class="md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- GDPR Task -->
+                <div class="group relative p-8 rounded-xl bg-surface-container-high transition-all hover:bg-surface-bright border border-transparent hover:border-primary/20 overflow-hidden">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">security</span>
+                            <span class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase">REF: GDPR-EASY</span>
+                        </div>
+                        <div class="px-2 py-1 rounded bg-secondary/10 border border-secondary/20 text-secondary text-[10px] font-bold">STABLE</div>
+                    </div>
+                    <h3 class="text-2xl font-black mb-2 tracking-tight">DATA_LIFECYCLE</h3>
+                    <p class="text-on-surface-variant text-sm mb-8">Managing user data deletion across distributed B2B silos and verifying parity.</p>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-[10px] font-bold mb-2 uppercase tracking-wider">
+                                <span>Complexity</span>
+                                <span class="text-secondary">EASY</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <div class="h-2 flex-1 bg-secondary"></div>
+                                <div class="h-2 flex-1 bg-secondary/20"></div>
+                                <div class="h-2 flex-1 bg-secondary/20"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <span class="text-[10px] font-bold text-on-surface-variant uppercase block mb-1">Compliance Rate</span>
+                                <span class="text-xl font-bold text-white">75%</span>
+                            </div>
+                            <button class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center hover:bg-primary transition-colors hover:text-on-primary-fixed">
+                                <span class="material-symbols-outlined">play_arrow</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EU AI Act Task -->
+                <div class="group relative p-8 rounded-xl bg-surface-container-high transition-all hover:bg-surface-bright border border-transparent hover:border-secondary/20 overflow-hidden">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-secondary">database</span>
+                            <span class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase">REF: AIACT-MED</span>
+                        </div>
+                        <div class="px-2 py-1 rounded bg-tertiary/10 border border-tertiary/20 text-tertiary text-[10px] font-bold">REVIEW</div>
+                    </div>
+                    <h3 class="text-2xl font-black mb-2 tracking-tight">AI_TRANSPARENCY</h3>
+                    <p class="text-on-surface-variant text-sm mb-8">Governing high-risk credit scoring models and disclosure requirements.</p>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-[10px] font-bold mb-2 uppercase tracking-wider">
+                                <span>Complexity</span>
+                                <span class="text-tertiary">MEDIUM</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <div class="h-2 flex-1 bg-tertiary"></div>
+                                <div class="h-2 flex-1 bg-tertiary"></div>
+                                <div class="h-2 flex-1 bg-tertiary/20"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <span class="text-[10px] font-bold text-on-surface-variant uppercase block mb-1">Compliance Rate</span>
+                                <span class="text-xl font-bold text-white">40%</span>
+                            </div>
+                            <button class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center hover:bg-secondary transition-colors hover:text-on-primary-fixed">
+                                <span class="material-symbols-outlined">bolt</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NIS2 Task -->
+                <div class="md:col-span-2 group relative p-8 rounded-xl bg-surface-container-high transition-all hover:bg-surface-bright border border-transparent hover:border-error/20 overflow-hidden">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-error">hub</span>
+                            <span class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase">REF: NIS2-HARD</span>
+                        </div>
+                        <div class="px-2 py-1 rounded bg-error/10 border border-error/20 text-error text-[10px] font-bold">DRIFT</div>
+                    </div>
+                    <div class="flex flex-col md:flex-row justify-between gap-6">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-black mb-2 tracking-tight">CRITICAL_INFRA</h3>
+                            <p class="text-on-surface-variant text-sm mb-8">Protecting energy infrastructure supply chains against novel attack vectors.</p>
+                        </div>
+                        <div class="flex-1 space-y-6">
+                            <div>
+                                <div class="flex justify-between text-[10px] font-bold mb-2 uppercase tracking-wider">
+                                    <span>Complexity</span>
+                                    <span class="text-error">HARD</span>
+                                </div>
+                                <div class="flex gap-1">
+                                    <div class="h-2 flex-1 bg-error"></div>
+                                    <div class="h-2 flex-1 bg-error"></div>
+                                    <div class="h-2 flex-1 bg-error"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <span class="text-[10px] font-bold text-on-surface-variant uppercase block mb-1">Compliance Rate</span>
+                                    <span class="text-xl font-bold text-white">15%</span>
+                                </div>
+                                <button class="px-6 py-2 rounded-lg bg-error text-on-primary-fixed font-bold hover:brightness-110 transition-all">
+                                    INTERVENE
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-2 bg-[#0e0e0f]/90 backdrop-blur-2xl rounded-t-[32px] border-t border-white/5">
+        <a class="flex flex-col items-center justify-center text-[#adaaab] pt-2 hover:text-white transition-all" href="/">
+            <span class="material-symbols-outlined text-2xl">grid_view</span>
+            <span class="text-[10px] font-bold tracking-[0.05em] uppercase mt-1">DASHBOARD</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#00eefc] border-t-2 border-[#00eefc] pt-2 transition-all scale-110 duration-300" href="/tasks.html">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+            <span class="text-[10px] font-bold tracking-[0.05em] uppercase mt-1">TASKS</span>
+        </a>
+        <button class="flex flex-col items-center justify-center text-[#adaaab] pt-2 hover:text-white transition-all">
+            <span class="material-symbols-outlined text-2xl">insights</span>
+            <span class="text-[10px] font-bold tracking-[0.05em] uppercase mt-1">INSIGHTS</span>
+        </button>
+        <button class="flex flex-col items-center justify-center text-[#adaaab] pt-2 hover:text-white transition-all">
+            <span class="material-symbols-outlined text-2xl">person</span>
+            <span class="text-[10px] font-bold tracking-[0.05em] uppercase mt-1">PROFILE</span>
+        </button>
+    </nav>
+    <script type="module" src="/main.js"></script>
+</body>
+</html>
