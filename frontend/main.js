@@ -201,6 +201,28 @@ function updateGauge(percent, status) {
     pill.querySelector('span:last-child').innerText = status;
 }
 
+async function startTraining() {
+    addLog("Initiating GRPO Policy Alignment...", "info");
+    const btn = event.currentTarget;
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">sync</span> Training...';
+    
+    try {
+        const res = await fetch(`${API_BASE}/train`, { method: 'POST' });
+        const data = await res.json();
+        addLog(data.message, "success");
+        addLog("Training running in background. Reward curve will update on completion.", "info");
+    } catch (e) {
+        addLog(`Training failed to start: ${e.message}`, "error");
+    } finally {
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }, 5000);
+    }
+}
+
 function animateBar(id, value) {
     const bar = document.getElementById(id);
     if (bar) bar.style.width = `${value * 100}%`;

@@ -15,6 +15,7 @@ import json
 import logging
 import os
 import sys
+import subprocess
 from contextlib import asynccontextmanager
 from typing import Any, Dict, Optional
 
@@ -269,6 +270,20 @@ async def step_environment(data: dict = Body(...)) -> StepResult:
     except Exception as e:
         logger.exception("Step failed")
         raise HTTPException(status_code=500, detail=f"Step failed: {e}")
+
+@app.post("/train", tags=["Training"])
+async def trigger_training():
+    """
+    Triggers the train_agent.py script in the background.
+    """
+    try:
+        # Start training script in background
+        subprocess.Popen(["python", "train_agent.py"], cwd=_root)
+        logger.info("Training script triggered via Web UI.")
+        return {"status": "success", "message": "GRPO Training initiated in background."}
+    except Exception as e:
+        logger.error(f"Failed to start training: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/evaluate", tags=["Evaluation"])
 async def run_evaluation() -> Dict[str, Any]:
