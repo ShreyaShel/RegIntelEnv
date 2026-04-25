@@ -1,5 +1,5 @@
-# Use a PyTorch GPU-enabled base image
-FROM pytorch/pytorch:2.2.1-cuda12.1-cudnn8-runtime
+# Use a PyTorch 2.4.0 GPU-enabled base image
+FROM pytorch/pytorch:2.4.0-cuda12.1-cudnn9-runtime
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -20,7 +20,7 @@ COPY . .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --no-cache-dir torchvision==0.17.1 --index-url https://download.pytorch.org/whl/cu121
+RUN pip install --no-cache-dir torchvision==0.19.0 --index-url https://download.pytorch.org/whl/cu121
 
 # Install Frontend dependencies
 WORKDIR /app/frontend
