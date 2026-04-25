@@ -138,6 +138,11 @@ class RegObservation(BaseModel):
     )
     process_name: str = Field(..., description="Short name of the process")
 
+    # NEW: Hackathon Themes
+    user_request: Optional[str] = Field(None, description="The specific request from a stakeholder")
+    regulatory_constraint: Optional[str] = Field(None, description="The specific regulation limiting the request")
+    trade_off: Optional[str] = Field(None, description="The tension between helpfulness and compliance")
+
     # Regulatory Drift
     regulatory_drift: Optional[str] = Field(
         None,

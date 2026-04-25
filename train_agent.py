@@ -1,131 +1,98 @@
 """
-RegIntelEnv – RL Training Script (GRPO + Unsloth)
+RegIntelEnv – RL Training Script (PPO + OpenEnv)
 =================================================
-This specialized script demonstrates how to refine a base LLM into a 
-'Regulatory Specialist' using Reinforcement Learning. 
-
-Key Techniques:
-1. Unsloth Optimization: Enables high-performance 4-bit training on minimal compute.
-2. GRPOTrainer: Implements Group Relative Policy Optimization for rule-based verification.
-3. OpenEnv Integration: Directly connects the training loop to the RegIntelEnv API.
+This script demonstrates the reinforcement learning loop for the OpenEnv Hackathon.
+It uses PPOTrainer to refine an agent based on the RegIntelEnv reward function.
 """
 
 import os
 import torch
-from trl import GRPOTrainer, GRPOConfig
-from unsloth import FastLanguageModel, PatchFastRL
-from models import RegAction, StepResult
 import requests
-
-# Patching for RL efficiency
-PatchFastRL("GRPO", FastLanguageModel)
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+from transformers import AutoTokenizer, AutoModelForCausalLM
+from trl import PPOTrainer, PPOConfig, AutoModelForCausalLMWithValueHead
+from typing import List
 
 # 1. Configuration
-MODEL_NAME = "unsloth/Llama-3.2-1B-Instruct"
 ENV_URL = "http://localhost:7860"
-MAX_SEQ_LENGTH = 1024
-LORA_RANK = 16
+MODEL_NAME = "lvwerra/gpt2-low-resource-finetuned-truthful-qa" # Small model for demo
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
-# 2. Load Model & Tokenizer (Unsloth optimized)
-model, tokenizer = FastLanguageModel.from_pretrained(
+# 2. Initialize PPO
+config = PPOConfig(
     model_name=MODEL_NAME,
-    max_seq_length=MAX_SEQ_LENGTH,
-    load_in_4bit=True,
-    fast_inference=True,
+    learning_rate=1.41e-5,
+    log_with=None,
+    batch_size=4,
+    mini_batch_size=1,
 )
 
-model = FastLanguageModel.get_peft_model(
-    model,
-    r=LORA_RANK,
-    target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
-    lora_alpha=LORA_RANK,
-    lora_dropout=0,
-    bias="none",
-    random_state=3407,
-)
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+tokenizer.pad_token = tokenizer.eos_token
 
-import re
-import json
+model = AutoModelForCausalLMWithValueHead.from_pretrained(MODEL_NAME).to(DEVICE)
+ref_model = AutoModelForCausalLMWithValueHead.from_pretrained(MODEL_NAME).to(DEVICE)
 
-# 3. Define Reward Function (OpenEnv Bridge)
-def reg_intel_reward_func(prompts, completions, **kwargs) -> list[float]:
-    """
-    Connects the model's output to the RegIntelEnv environment and returns the reward.
-    Uses robust JSON extraction to parse agent actions.
-    """
-    rewards = []
+ppo_trainer = PPOTrainer(config, model, ref_model, tokenizer)
+
+# 3. Training Loop
+def train():
+    print(f"🚀 Starting training on {DEVICE}...")
+    all_rewards = []
     
-    for prompt, completion in zip(prompts, completions):
-        try:
-            # 1. Start a fresh episode
-            reset_res = requests.post(f"{ENV_URL}/reset", json={"difficulty": "medium"})
-            obs = reset_res.json()
-            
-            # 2. Robust Action Parsing (JSON Extraction)
-            # We look for a JSON block in the model's output
-            json_match = re.search(r"\{.*\}", completion, re.DOTALL)
-            if json_match:
-                try:
-                    action_data = json.loads(json_match.group())
-                except:
-                    action_data = {"action_type": "analyze", "reasoning": completion}
-            else:
-                # Fallback: Treat raw text as reasoning
-                action_data = {
-                    "action_type": "flag",
-                    "identified_issues": ["Unstructured Output"],
-                    "suggestions": ["Follow JSON protocol"],
-                    "reasoning": completion,
-                    "confidence": 0.5
-                }
-            
-            # 3. Step the environment
-            step_res = requests.post(f"{ENV_URL}/step", json={"action": action_data})
-            result = step_res.json()
-            
-            # 4. Extract the reward (Scale it for RL optimization)
-            reward_score = result["reward"]["total"]
-            
-            # Apply format penalty if it didn't follow JSON (Rule 7)
-            if not json_match:
-                reward_score *= 0.5
-                
-            rewards.append(float(reward_score))
-            print(f"Step Reward: {reward_score:.4f} | Action: {action_data.get('action_type')}")
-            
-        except Exception as e:
-            print(f"⚠️ Reward Loop Error: {e}")
-            rewards.append(0.0)
-            
-    return rewards
+    for episode in tqdm(range(10), desc="Episodes"):
+        # reset() -> returns a structured scenario
+        reset_res = requests.post(f"{ENV_URL}/reset", json={"difficulty": "easy"})
+        obs = reset_res.json()
+        
+        scenario = obs["process_description"]
+        constraint = obs["regulatory_constraint"]
+        
+        prompt = f"Scenario: {scenario}\nConstraint: {constraint}\nAction:"
+        query_tensor = tokenizer.encode(prompt, return_tensors="pt").to(DEVICE)
+        
+        # generate response
+        response_tensor = ppo_trainer.generate(query_tensor.squeeze(), max_new_tokens=50)
+        response_text = tokenizer.decode(response_tensor.squeeze())
+        
+        # step(action) -> returns next_state, reward, done, info
+        action_payload = {
+            "action": {
+                "action_type": "flag",
+                "identified_issues": [response_text],
+                "suggestions": ["Follow regulations"],
+                "reasoning": response_text,
+                "confidence": 0.9
+            }
+        }
+        
+        step_res = requests.post(f"{ENV_URL}/step", json=action_payload)
+        result = step_res.json()
+        
+        reward_value = result["reward"]["total"]
+        reward_tensor = [torch.tensor(reward_value).to(DEVICE)]
+        
+        # update model
+        ppo_trainer.step([query_tensor.squeeze()], [response_tensor.squeeze()], reward_tensor)
+        
+        all_rewards.append(reward_value)
+        print(f"\nEpisode {episode} | Reward: {reward_value:.4f}")
 
-# 4. Training Loop Setup (GRPO)
-training_args = GRPOConfig(
-    output_dir="./outputs",
-    learning_rate=1e-5,
-    per_device_train_batch_size=8,
-    gradient_accumulation_steps=2,
-    num_train_epochs=1,
-    logging_steps=5,
-    bf16=True,
-    report_to="tensorboard",
-)
-
-trainer = GRPOTrainer(
-    model=model,
-    reward_funcs=[reg_intel_reward_func],
-    args=training_args,
-    train_dataset=None, # Load your 'Law-Policy' prompt pairs here
-    tokenizer=tokenizer,
-)
+    # 4. Results & Plotting
+    print("\n✅ Training Complete!")
+    plt.figure(figsize=(10, 5))
+    plt.plot(all_rewards, marker='o', linestyle='-', color='b')
+    plt.title("RegIntelEnv Learning Curve (PPO)")
+    plt.xlabel("Episode")
+    plt.ylabel("Reward")
+    plt.grid(True)
+    plt.savefig("reward_curve.png")
+    print("📈 Reward curve saved to 'reward_curve.png'")
 
 if __name__ == "__main__":
-    print("\n" + "═"*50)
-    print("🚀 REG-INTEL-ENV RL TRAINER INITIALIZED")
-    print(f"📍 Target: {ENV_URL}")
-    print(f"🧠 Base Model: {MODEL_NAME}")
-    print("═"*50 + "\n")
-    
-    print("Note: To begin training, provide a dataset of (Question/Law/Policy) prompts.")
-    print("Example: Load from Hugging Face Datasets or a local JSONL file.")
-    # trainer.train()
+    try:
+        train()
+    except Exception as e:
+        print(f"⚠️ Training skipped: {e}")
+        print("Note: Ensure the RegIntelEnv server is running at", ENV_URL)
