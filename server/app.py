@@ -884,6 +884,13 @@ if os.path.exists(FRONTEND_DIR):
     @app.get("/tasks.html", include_in_schema=False)
     async def serve_tasks():
         return FileResponse(os.path.join(FRONTEND_DIR, "tasks.html"))
+
+    @app.get("/reward_curve.png", include_in_schema=False)
+    async def serve_reward_curve():
+        path = os.path.join(_root, "reward_curve.png")
+        if os.path.exists(path):
+            return FileResponse(path)
+        return HTMLResponse("Image Not Found", status_code=404)
     
     # Optional: Mount assets if they exist
     assets_dir = os.path.join(FRONTEND_DIR, "assets")
