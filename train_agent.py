@@ -172,7 +172,7 @@ training_args = GRPOConfig(
     num_generations=4,
     temperature=0.7,
     top_p=0.9,
-    fp16=True,   # Explicitly enable FP16
+    fp16=False,  # Disable explicit scaler to fix AssertionError
     bf16=False,  # Explicitly disable BF16 for T4 compatibility
 )
 
