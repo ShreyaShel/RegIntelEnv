@@ -93,5 +93,24 @@ def main():
     trainer.train()
     print("✅ Training Complete!")
 
+    # 4. Results & Plotting
+    try:
+        import matplotlib.pyplot as plt
+        history = trainer.state.log_history
+        rewards = [log["rewards/reward_function/mean"] for log in history if "rewards/reward_function/mean" in log]
+        
+        if rewards:
+            plt.figure(figsize=(10, 5))
+            plt.style.use('dark_background')
+            plt.plot(rewards, marker='o', linestyle='-', color='#00f2fe', linewidth=2)
+            plt.title("Neural Policy Alignment Progress (GRPO)")
+            plt.xlabel("Step")
+            plt.ylabel("Reward")
+            plt.grid(True, alpha=0.2)
+            plt.savefig("reward_curve.png")
+            print("📊 Reward curve updated in 'reward_curve.png'")
+    except Exception as e:
+        print(f"⚠️ Could not generate plot: {e}")
+
 if __name__ == "__main__":
     main()
