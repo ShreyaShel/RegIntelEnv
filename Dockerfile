@@ -19,7 +19,7 @@ WORKDIR /app
 COPY . .
 
 # Install Python dependencies
-RUN uv sync
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Install Frontend dependencies
 WORKDIR /app/frontend
