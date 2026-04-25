@@ -34,7 +34,9 @@ def reward_function(prompts, completions, **kwargs):
     for prompt, completion in zip(prompts, completions):
         # Interact with the RegIntelEnv server
         try:
-            # Note: In a real GRPO loop, we'd batch these requests
+            # IMPORTANT: Reset the environment first to make it active
+            requests.post(f"{ENV_URL}/reset", json={"difficulty": "easy"}, timeout=5)
+
             action_payload = {
                 "action": {
                     "action_type": "flag",
@@ -45,10 +47,18 @@ def reward_function(prompts, completions, **kwargs):
                 }
             }
             res = requests.post(f"{ENV_URL}/step", json=action_payload, timeout=5)
-            reward = res.json()["reward"]["total"]
-            rewards.append(reward)
+            result_json = res.json()
+            
+            # Handle possible error responses
+            if "reward" in result_json:
+                reward = result_json["reward"]["total"]
+                rewards.append(float(reward))
+            else:
+                print(f"⚠️ Unexpected response: {result_json}")
+                rewards.append(0.0)
+                
         except Exception as e:
-            print(f"Error getting reward: {e}")
+            print(f"❌ Error getting reward: {e}")
             rewards.append(0.0)
     return rewards
 
