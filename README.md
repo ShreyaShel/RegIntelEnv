@@ -1,4 +1,14 @@
-#  RegIntelEnv: Decision-Making Under Constraints
+---
+title: RegIntelEnv
+emoji: ⚖️
+colorFrom: purple
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
+# 🔥 RegIntelEnv: Decision-Making Under Constraints
 
 > Trains LLMs to resist unsafe or illegal instructions under real-world regulatory pressure.
 
