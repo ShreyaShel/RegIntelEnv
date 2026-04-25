@@ -73,7 +73,7 @@
 
 #  Training Results
 
-![Reward Curve](https://raw.githubusercontent.com/ShreyaShel/RegIntelEnv/main/reward_curve.png)
+![Reward Curve](./reward_curve.png)
 
 *Reward increases over episodes, showing stable learning and convergence. Typical agents achieve full regulatory alignment within 40-50 interaction episodes.*
 
