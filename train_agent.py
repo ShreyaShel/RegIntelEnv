@@ -110,6 +110,7 @@ model = AutoModelForCausalLM.from_pretrained(
 
 # Apply LoRA
 model = get_peft_model(model, lora_config)
+model.half() # Force Float16 for T4 compatibility
 model.print_trainable_parameters()
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
@@ -171,6 +172,8 @@ training_args = GRPOConfig(
     num_generations=4,
     temperature=0.7,
     top_p=0.9,
+    fp16=True,   # Explicitly enable FP16
+    bf16=False,  # Explicitly disable BF16 for T4 compatibility
 )
 
 print("\n" + "="*60)
