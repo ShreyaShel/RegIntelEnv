@@ -20,6 +20,7 @@ COPY . .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir torchvision==0.17.1 --index-url https://download.pytorch.org/whl/cu121
 
 # Install Frontend dependencies
 WORKDIR /app/frontend
