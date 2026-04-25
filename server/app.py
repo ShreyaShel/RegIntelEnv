@@ -859,20 +859,27 @@ document.getElementById('clearBtn').addEventListener('click', () => {
 # Serve Frontend
 # ---------------------------------------------------------------------------
 
-# Fallback: If 'dist' doesn't exist, serve from raw 'frontend' folder
-if not os.path.exists(FRONTEND_DIR):
+# Fallback: If 'dist' doesn't contain 'main.js', serve from raw 'frontend' folder
+if not os.path.exists(os.path.join(FRONTEND_DIR, "main.js")):
     FRONTEND_DIR = os.path.join(_root, "frontend")
-    logger.info("Using raw 'frontend' directory for UI.")
+    logger.info(f"Using raw 'frontend' directory for UI: {FRONTEND_DIR}")
 
 if os.path.exists(FRONTEND_DIR):
     # Static files (css, js)
     @app.get("/", include_in_schema=False)
     async def serve_index():
-        return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+        path = os.path.join(FRONTEND_DIR, "index.html")
+        if not os.path.exists(path):
+             return HTMLResponse("<h1>Frontend Not Found</h1>", status_code=404)
+        return FileResponse(path)
 
     @app.get("/main.js", include_in_schema=False)
     async def serve_js():
-        return FileResponse(os.path.join(FRONTEND_DIR, "main.js"))
+        path = os.path.join(FRONTEND_DIR, "main.js")
+        if not os.path.exists(path):
+             # Deep fallback to root if needed
+             path = os.path.join(_root, "frontend", "main.js")
+        return FileResponse(path)
 
     @app.get("/tasks.html", include_in_schema=False)
     async def serve_tasks():
