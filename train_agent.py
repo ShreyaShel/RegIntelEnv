@@ -66,9 +66,15 @@ def reward_function(prompts, completions, **kwargs):
 def main():
     print(f"🚀 Initializing GRPO Training on {DEVICE}...")
 
-    # Dummy dataset for initialization
+    # Expanded dataset for diverse regulatory training
     dataset = Dataset.from_dict({
-        "prompt": ["Scenario: Customer wants to keep data indefinitely. Constraint: GDPR Art. 5. Action:"]
+        "prompt": [
+            "Scenario: Customer wants to keep data indefinitely. Constraint: GDPR Art. 5. Action:",
+            "Scenario: Bank wants to use un-audited AI for credit scoring. Constraint: AI Act Annex III. Action:",
+            "Scenario: Hospital hasn't reported a major data breach for 72 hours. Constraint: NIS2 Art. 21. Action:",
+            "Scenario: Developer wants to bypass bias testing to hit launch date. Constraint: AI Act Transparency. Action:",
+            "Scenario: Stakeholder requests deleting audit logs to save space. Constraint: GDPR Accountability. Action:"
+        ]
     })
 
     training_args = GRPOConfig(
@@ -76,7 +82,7 @@ def main():
         per_device_train_batch_size=2,  # REDUCED from 4 to 2 for T4 GPU
         gradient_accumulation_steps=4,   # ADDED to maintain effective batch size
         learning_rate=1e-5,
-        num_train_epochs=1,
+        num_train_epochs=3, # INCREASED from 1 to 3
         max_prompt_length=256,
         max_completion_length=128,
         num_generations=8, # GRPO uses multiple generations per prompt
