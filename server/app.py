@@ -278,7 +278,7 @@ async def trigger_training():
     """
     try:
         # Start training script in background
-        subprocess.Popen(["python", "train_agent.py"], cwd=_root)
+        subprocess.Popen(["python3", "train_agent.py"], cwd=_root)
         logger.info("Training script triggered via Web UI.")
         return {"status": "success", "message": "GRPO Training initiated in background."}
     except Exception as e:

@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install uv
-RUN pip install uv
+RUN pip3 install uv
 
 # Set working directory
 WORKDIR /app
@@ -19,7 +19,7 @@ WORKDIR /app
 COPY . .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Install Frontend dependencies
 WORKDIR /app/frontend
@@ -35,4 +35,4 @@ WORKDIR /app
 EXPOSE 7860
 
 # Command to run the application
-CMD ["python", "app.py"]
+CMD ["python3", "app.py"]
