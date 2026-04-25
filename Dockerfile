@@ -35,5 +35,4 @@ WORKDIR /app
 EXPOSE 7860
 
 # Command to run the application
-# We'll modify dev.py slightly or use a production runner for HF
-CMD ["python", "dev.py"]
+CMD ["python", "app.py"]
