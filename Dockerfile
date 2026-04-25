@@ -1,5 +1,5 @@
-# Use a PyTorch 2.4.0 GPU-enabled base image
-FROM pytorch/pytorch:2.4.0-cuda12.1-cudnn9-runtime
+# Use the official Hugging Face GPU-optimized base image (stable stack)
+FROM huggingface/transformers-pytorch-gpu:latest
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -20,7 +20,6 @@ COPY . .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --no-cache-dir torchvision==0.19.0 --index-url https://download.pytorch.org/whl/cu121
 
 # Install Frontend dependencies
 WORKDIR /app/frontend
