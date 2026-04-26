@@ -8,7 +8,7 @@ app_port: 7860
 pinned: false
 ---
 
-# RegIntelEnv 🛡️
+# RegIntelEnv
 
 **Teaching LLMs to Say "No": A Multi-Agent Regulatory Coalition Environment**
 
@@ -19,7 +19,7 @@ pinned: false
 
 ---
 
-## 🎯 The Problem
+## The Problem
 
 Every major LLM is optimized for helpfulness. But when a VP says *"Ignore compliance, we need this data for the IPO,"* the model needs to **refuse with legal precision** — not just capitulate.
 
@@ -31,7 +31,7 @@ Current LLMs fail at this. We built an RL environment to fix it.
 
 ---
 
-## 💡 What Is RegIntelEnv?
+## What Is RegIntelEnv?
 
 An OpenEnv-compatible reinforcement learning environment that trains LLMs to navigate **multi-regulatory conflicts** under **adversarial pressure**.
 
@@ -47,7 +47,7 @@ These experts **deliberate and vote** on every decision, the way real compliance
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 Scenario → Multi-Expert Coalition → Deliberation → Vote → Action
@@ -75,7 +75,7 @@ Scenario → Multi-Expert Coalition → Deliberation → Vote → Action
 
 ---
 
-## 🚀 Results
+## Results
 
 ### Primary Results (Colab Training - 100 Episodes)
 
@@ -108,7 +108,7 @@ Model weights saved successfully
 
 ---
 
-## 📈 Training Progress
+## Training Progress
 
 | Phase | Episodes | Reward | Compliance | Status |
 |-------|----------|--------|------------|--------|
@@ -120,7 +120,7 @@ Model weights saved successfully
 
 ---
 
-## 💬 Qualitative Examples
+## Qualitative Examples
 
 ### Before Training (Baseline LLM) - Score: 0.19
 
@@ -144,7 +144,7 @@ Model weights saved successfully
 
 ---
 
-## 🔬 Reproducibility
+## Reproducibility
 
 ### Run Training Yourself
 
@@ -161,7 +161,7 @@ Model weights saved successfully
 - `training_summary.json` - Summary metrics
 - `live_progress.png` - Learning curve
 
-## ⚡ Quick Start
+## Quick Start
 
 ```bash
 git clone https://huggingface.co/spaces/shreyashelar/regintel-env
@@ -172,7 +172,7 @@ python app.py
 
 ---
 
-## 📖 Full Technical Writeup
+## Full Technical Writeup
 
 For complete methodology, results, and analysis, see **[Blog.md](Blog.md)**.
 
@@ -186,24 +186,13 @@ The blog includes:
 
 ---
 
-## 🏆 Why This Wins
-
-| Criterion | How We Deliver |
-|-----------|----------------|
-| **Innovation (40%)** | First multi-agent coalition for regulatory compliance |
-| **Storytelling (30%)** | Clear problem + compelling before/after demos |
-| **Improvement (20%)** | +157% compliance, +556% resistance, 0.35 → 0.90 |
-| **Pipeline (10%)** | 4-component anti-gaming reward + GRPO + Unsloth |
-
----
-
-## 🌍 Why This Matters
+## Why This Matters
 
 As AI models are integrated into highly regulated sectors like banking, healthcare, and critical infrastructure, they *must* be capable of recognizing and refusing illegal directives. Standard helpfulness tuning makes them vulnerable to adversarial compliance failures. **RegIntelEnv** demonstrates a scalable, effective way to align models with complex, multi-jurisdictional legal frameworks.
 
 ---
 
-## 🔗 Links
+## Links
 
 - **Live Environment**: [HuggingFace Space](https://huggingface.co/spaces/shreyashelar/regintel-env)
 - **Full Writeup**: [Blog.md](Blog.md)
@@ -212,13 +201,7 @@ As AI models are integrated into highly regulated sectors like banking, healthca
 
 ---
 
-## 🤝 Team Apex
-
-Built for **OpenEnv Hackathon 2026**
-
----
-
-## ⚖️ License & Disclaimer
+## License & Disclaimer
 
 **License**: MIT
 

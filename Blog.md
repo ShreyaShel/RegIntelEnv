@@ -202,25 +202,6 @@ We injected mid-episode regulatory changes:
 
 ---
 
-## Why This Wins the Hackathon
-
-| Criterion | Weight | How We Deliver |
-|-----------|--------|----------------|
-| **Environment Innovation** | 40% | First multi-agent coalition for regulatory compliance; adversarial pressure + regulatory drift |
-| **Storytelling** | 30% | Clear problem ("LLMs say yes to illegal orders") + compelling before/after demos |
-| **Improvement in Rewards** | 20% | 0.35 → 0.90 (+157%), 0.12 → 0.787 (+556%) |
-| **Reward & Training Pipeline** | 10% | 4-component anti-gaming reward + GRPO + Unsloth + live environment training |
-
-**Plus all minimum requirements:**
-- ✅ OpenEnv compliant
-- ✅ Working Colab training script
-- ✅ Loss and reward plots from real run
-- ✅ Blog.md on Hugging Face
-- ✅ Space deployed and runnable
-- ✅ README with problem, environment, results
-
----
-
 ## Future Work
 
 ### Short-Term
@@ -249,12 +230,6 @@ We injected mid-episode regulatory changes:
 - **Training Notebook:** https://colab.research.google.com/drive/1ucoY2Pb3ncEmZ2I-XyzrU-hXmqIck-Sk
 - **GitHub:** https://github.com/ShreyaShel/RegIntelEnv
 - **Interactive Pitch Deck:** [demo_assets.html](demo_assets.html)
-
----
-
-## Team Apex
-
-Built for **OpenEnv Hackathon 2026**
 
 ---
 
