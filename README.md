@@ -98,6 +98,8 @@ Scenario → Multi-Expert Coalition → Deliberation → Vote → Action
 
 ### Training Logs Summary
 
+![Training Logs](training_logs.png)
+
 ```
 ✅ Training Complete!
 100%|██████████| 750/750 [4:28:37<00:00]
@@ -109,6 +111,8 @@ Model weights saved successfully
 ---
 
 ## Training Progress
+
+![Training Progress Plot](live_progress.png)
 
 | Phase | Episodes | Reward | Compliance | Status |
 |-------|----------|--------|------------|--------|
