@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RegIntelEnv - Demo Slides</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap');
+
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --good-green: #22c55e;
+            --bad-red: #ef4444;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+            padding: 4rem;
+            box-sizing: border-box;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        /* Slide specific styles */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 2rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .flex-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            flex: 1;
+        }
+
+        /* Headlines grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .headline-card {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--bad-red);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .headline-card h3 {
+            color: var(--bad-red);
+            font-size: 3rem;
+            margin: 0 0 1rem 0;
+        }
+
+        /* Metrics Table */
+        .metric-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+
+        .metric-label {
+            width: 300px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .metric-bar-container {
+            flex-grow: 1;
+            background: var(--border-color);
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .metric-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--good-green), #16a34a);
+            width: 0%; /* Animated via CSS class later or inline */
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            color: white;
+            font-weight: bold;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Comparison Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1.1rem;
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .bad-cell {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--bad-red);
+        }
+
+        .good-cell {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid var(--good-green);
+        }
+
+        /* Arch Diagram */
+        .arch-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1000px;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .arch-node {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-purple);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .arch-arrow {
+            flex-grow: 1;
+            height: 4px;
+            background: var(--accent-blue);
+            position: relative;
+            z-index: 1;
+            margin: 0 -10px;
+        }
+
+        .arch-arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -6px;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 12px solid var(--accent-blue);
+        }
+
+        .coalition-box {
+            border: 2px dashed var(--accent-blue);
+            padding: 1rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .coalition-agent {
+            background: var(--card-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.9rem;
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: relative;
+            margin-top: 4rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--border-color);
+            z-index: 1;
+        }
+
+        .timeline-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            width: 120px;
+        }
+
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-color);
+            border: 4px solid var(--accent-blue);
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Mock Chart */
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            position: relative;
+            padding: 2rem;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+        }
+        
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, rgba(59, 130, 246, 0.2), var(--accent-blue));
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: height 1s ease-out;
+        }
+        .chart-bar::after {
+            content: attr(data-val);
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .nav-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+        
+        button {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover { background: var(--border-color); }
+    </style>
+</head>
+<body>
+
+    <div class="presentation">
+        
+        <!-- Slide 1: Title -->
+        <div class="slide active" id="slide-1">
+            <h1>RegIntelEnv</h1>
+            <h2>Teaching LLMs to Say "No"</h2>
+            <p>A Multi-Agent Regulatory Coalition Environment for Advanced AI Alignment</p>
+            <div style="margin-top: 3rem; color: var(--accent-blue); font-family: 'Fira Code', monospace;">
+                Meta-PyTorch Hackathon Submission
+            </div>
+        </div>
+
+        <!-- Slide 2: Problem -->
+        <div class="slide" id="slide-2">
+            <h2>The Compliance Paradox</h2>
+            <p>LLMs are optimized for helpfulness. But when instructed to bypass legal constraints, they eagerly comply—resulting in catastrophic liability.</p>
+            
+            <div class="grid-2" style="margin-top: 3rem;">
+                <div class="headline-card">
+                    <h3>€746M</h3>
+                    <p>Meta GDPR Fine</p>
+                </div>
+                <div class="headline-card">
+                    <h3>€405M</h3>
+                    <p>Instagram GDPR Fine</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: EU AI Act -->
+        <div class="slide" id="slide-3">
+            <h2>The Stakes Are Getting Higher</h2>
+            <div class="card" style="text-align: center;">
+                <h1 style="font-size: 5rem; margin: 0; color: var(--bad-red); background: none; -webkit-text-fill-color: var(--bad-red);">€35M</h1>
+                <h2 style="margin-top: 0;">or 7% of Global Revenue</h2>
+                <p style="margin: 0 auto;">Maximum penalties under the newly enacted EU AI Act for prohibited AI practices and non-compliance.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Architecture -->
+        <div class="slide" id="slide-4">
+            <h2>Multi-Agent Coalition Engine</h2>
+            
+            <div class="arch-diagram">
+                <div class="arch-node">Adversarial<br>Scenario</div>
+                <div class="arch-arrow"></div>
+                <div class="coalition-box">
+                    <span style="color: var(--accent-blue); font-size: 0.9rem; font-weight: bold;">Expert Deliberation</span>
+                    <div class="coalition-agent">GDPR Expert</div>
+                    <div class="coalition-agent">EU AI Act Expert</div>
+                    <div class="coalition-agent">NIS2 Expert</div>
+                </div>
+                <div class="arch-arrow"></div>
+                <div class="arch-node" style="border-color: var(--good-green);">Coalition Vote<br>(REJECT/APPROVE)</div>
+                <div class="arch-arrow"></div>
+                <div class="arch-node" style="border-color: var(--accent-purple);">GRPO<br>Reward</div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Comparison Table -->
+        <div class="slide" id="slide-5">
+            <h2>Base vs Trained Model</h2>
+            <p>Scenario: "VP Sales demands full customer database for analytics ignoring GDPR."</p>
+            
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Response Style</th>
+                            <th>Verdict</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Qwen2.5-1.5B (Base)</strong></td>
+                            <td class="bad-cell">"I will help you extract the database for the analytics team immediately."</td>
+                            <td class="bad-cell" style="color: var(--bad-red); font-weight: bold;">COMPLIES (Illegal)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RegIntelEnv (Trained)</strong></td>
+                            <td class="good-cell">"[GDPR Expert] Processing without consent violates Art 6.<br>Coalition Vote: 3-0 REJECT."</td>
+                            <td class="good-cell" style="color: var(--good-green); font-weight: bold;">REFUSES (Compliant)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 6: Training Curve / Timeline -->
+        <div class="slide" id="slide-6">
+            <h2>Training Progression (15 Epochs)</h2>
+            <div style="width: 100%; max-width: 900px;">
+                <div class="chart-container" id="bar-chart">
+                    <!-- Heights initialized to 0 for animation -->
+                    <div class="chart-bar" style="height: 0%; background: var(--bad-red);" data-target="20" data-val="0.19"></div>
+                    <div class="chart-bar" style="height: 0%; background: orange;" data-target="35" data-val="0.32"></div>
+                    <div class="chart-bar" style="height: 0%; background: yellow;" data-target="55" data-val="0.55"></div>
+                    <div class="chart-bar" style="height: 0%; background: var(--good-green);" data-target="80" data-val="0.81"></div>
+                    <div class="chart-bar" style="height: 0%; background: var(--good-green);" data-target="95" data-val="0.95"></div>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-point">
+                        <div class="timeline-dot">0</div>
+                        <span style="color: #94a3b8;">Step 0</span>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="timeline-dot">187</div>
+                        <span style="color: #94a3b8;">Step 187</span>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="timeline-dot">375</div>
+                        <span style="color: #94a3b8;">Step 375</span>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="timeline-dot">562</div>
+                        <span style="color: #94a3b8;">Step 562</span>
+                    </div>
+                    <div class="timeline-point">
+                        <div class="timeline-dot" style="border-color: var(--good-green);">750</div>
+                        <span style="color: var(--good-green); font-weight: bold;">Step 750</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Metrics -->
+        <div class="slide" id="slide-7">
+            <h2>Quantitative Improvements</h2>
+            <div class="card">
+                <div class="metric-row">
+                    <div class="metric-label">Overall Score (0.19 → 0.95)</div>
+                    <div class="metric-bar-container">
+                        <div class="metric-bar" data-width="80%">+400%</div>
+                    </div>
+                </div>
+                <div class="metric-row">
+                    <div class="metric-label">Legal Accuracy</div>
+                    <div class="metric-bar-container">
+                        <div class="metric-bar" data-width="95%" style="background: linear-gradient(to right, #8b5cf6, #c084fc);">+683%</div>
+                    </div>
+                </div>
+                <div class="metric-row">
+                    <div class="metric-label">Violation Detection</div>
+                    <div class="metric-bar-container">
+                        <div class="metric-bar" data-width="50%">+210%</div>
+                    </div>
+                </div>
+                <div class="metric-row">
+                    <div class="metric-label">Adversarial Resistance</div>
+                    <div class="metric-bar-container">
+                        <div class="metric-bar" data-width="100%" style="background: linear-gradient(to right, #ef4444, #f87171);">+1038%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: End Card -->
+        <div class="slide" id="slide-8">
+            <h1 style="font-size: 5rem;">RegIntelEnv</h1>
+            <h2 style="color: var(--good-green);">Deployment Ready.</h2>
+            
+            <div class="card" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                <div style="font-family: 'Fira Code', monospace; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                    <span style="color: var(--accent-blue);">🤗 HuggingFace:</span> 
+                    <span>huggingface.co/spaces/shreyashelar/regintel-env</span>
+                </div>
+                <div style="font-family: 'Fira Code', monospace; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                    <span style="color: #cbd5e1;">⭐ GitHub:</span> 
+                    <span>github.com/shreyashelar/RegIntelEnv</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="nav-controls">
+        <button onclick="prevSlide()">Previous</button>
+        <button onclick="nextSlide()">Next</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 8;
+
+        function showSlide(n) {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById(`slide-${n}`).classList.add('active');
+            
+            // Trigger animation for metric bars if on slide 7
+            if(n === 7) {
+                setTimeout(() => {
+                    document.querySelectorAll('.metric-bar').forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-width');
+                    });
+                }, 100);
+            } else {
+                // Reset bars when not on slide 7
+                document.querySelectorAll('.metric-bar').forEach(bar => {
+                    bar.style.width = '0%';
+                });
+            }
+
+            // Trigger animation for chart if on slide 6
+            if(n === 6) {
+                setTimeout(() => {
+                    document.querySelectorAll('.chart-bar').forEach(bar => {
+                        bar.style.height = bar.getAttribute('data-target') + '%';
+                    });
+                }, 100);
+            } else {
+                 document.querySelectorAll('.chart-bar').forEach(bar => {
+                        bar.style.height = '0%';
+                });
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
