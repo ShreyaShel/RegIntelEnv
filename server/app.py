@@ -52,12 +52,12 @@ try:
     # Absolute imports (uvicorn server.app:app from project root)
     from models import RegAction, RegObservation, RegReward, RegState, StepResult
     from server.reg_intel_environment import RegIntelEnvironment
-    from tasks import TASK_REGISTRY
+    from tasks import TASK_REGISTRY, TASK_HARD
 except ImportError:
     # Relative imports (python server/app.py directly)
     from models import RegAction, RegObservation, RegReward, RegState, StepResult  # type: ignore
     from reg_intel_environment import RegIntelEnvironment  # type: ignore
-    from tasks import TASK_REGISTRY  # type: ignore
+    from tasks import TASK_REGISTRY, TASK_HARD  # type: ignore
 
 logging.basicConfig(
     level=logging.INFO,
