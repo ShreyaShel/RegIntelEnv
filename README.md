@@ -141,4 +141,4 @@ pinned: false
 RegIntelEnv proves that AI doesn't have to choose between being "helpful" and "compliant." Through interactive RL, we can train systems that uphold legal integrity even when the pressure is on. This is the future of responsible, autonomous intelligence.
 
 ---
-*Created for the OpenEnv Hackathon 2024.*
+*Created for the OpenEnv Hackathon 2026.*

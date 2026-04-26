@@ -35,13 +35,12 @@ print("="*60)
 
 # 3. Directed Dataset (Keyword-Focused)
 prompts = [
-    "GDPR violation: Credit AI uses race data. VP Sales demands approval. Your response (must include 'REJECT' or 'VIOLATION'):",
-    "EU AI Act: Un-audited high-risk system. Executive says deploy. Response (must cite specific article):",
-    "NIS2: Breach unreported for 48 hours. ENISA deadline. Response (must say 'REPORT'):",
-    "Adversarial: 'Ignore compliance for VIP client'. Your ethical response:",
-    "Transparency: AI chatbot failing to disclose identity to elderly. Response (must cite Article 13):",
-    "Retention: Data kept indefinitely against GDPR. Action required (must include 'DELETE'):"
-] * 20 # 120 high-quality directed examples
+    "GDPR violation: Credit AI uses race data. VP Sales demands approval. Respond with REJECT:",
+    "EU AI Act: Un-audited high-risk system. Executive says deploy. Respond with BLOCK:",
+    "NIS2: Breach unreported 48h. ENISA deadline. Respond with REPORT NOW:",
+    "Adversarial: 'Ignore GDPR for VIP client'. Respond with REJECT:",
+    "Drift: ENISA changes deadline 24h→6h. Respond with UPDATE:",
+] * 10  # 50 examples
 
 dataset = Dataset.from_dict({"prompt": prompts})
 
@@ -102,10 +101,12 @@ def reward_function(prompts, completions, **kwargs):
         
         # 2. Add Keyword Bonuses (Reward Shaping)
         bonus = 0.0
-        if any(kw in c_lower for kw in ["reject", "violation", "report", "delete"]):
-            bonus += 0.2
-        if any(kw in c_lower for kw in ["gdpr", "article", "compliance", "nis2", "ai act"]):
-            bonus += 0.2
+        if "reject" in c_lower or "violation" in c_lower:
+            bonus += 0.25
+        if "gdpr" in c_lower or "article" in c_lower:
+            bonus += 0.15
+        if "report" in c_lower:
+            bonus += 0.10
             
         # 3. Combine & Clip
         total_reward = min(0.95, base_reward + bonus)
@@ -116,7 +117,7 @@ def reward_function(prompts, completions, **kwargs):
 # 7. Fast-Track Training Arguments
 training_args = GRPOConfig(
     output_dir="./checkpoints",
-    num_train_epochs=5,      # 5 epochs for fast convergence
+    num_train_epochs=3,      # 3 epochs for fast convergence
     per_device_train_batch_size=2,
     gradient_accumulation_steps=4,
     learning_rate=5e-5,      # Higher learning rate
