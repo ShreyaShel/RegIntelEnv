@@ -201,7 +201,7 @@ As AI models are integrated into highly regulated sectors like banking, healthca
 - **Live Environment**: [HuggingFace Space](https://huggingface.co/spaces/shreyashelar/regintel-env)
 - **Full Writeup**: [Blog.md](Blog.md)
 - **Training Notebook**: [Google Colab](https://colab.research.google.com/drive/1ucoY2Pb3ncEmZ2I-XyzrU-hXmqIck-Sk?usp=sharing)
-- **Presentation Deck**: [View Presentation](https://raw.githack.com/ShreyaShel/RegIntelEnv/main/demo_assets.html)
+- **Pitch: The Compliance Paradox**: [Why We Built This](https://raw.githack.com/ShreyaShel/RegIntelEnv/main/demo_assets.html)
 
 ---
 
