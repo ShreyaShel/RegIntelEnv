@@ -11,6 +11,7 @@ import requests
 import time
 import numpy as np
 import matplotlib.pyplot as plt
+import random
 from datasets import Dataset
 from trl import GRPOConfig, GRPOTrainer
 from huggingface_hub import login
@@ -76,7 +77,6 @@ tokenizer.pad_token = tokenizer.eos_token
 def get_env_reward(action):
     """Get raw reward from the expert grader server"""
     try:
-        import random
         diff = random.choice(["easy", "medium", "hard"])
         requests.post(f"{ENV_URL}/reset", json={"difficulty": diff}, timeout=3)
         payload = {
