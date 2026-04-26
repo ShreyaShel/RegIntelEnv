@@ -1,0 +1,54 @@
+100%|██████████| 750/750 [4:28:37<00:00, 21.91s/it]
+                                                   
+
+100%|██████████| 750/750 [4:28:37<00:00, 21.91s/it]
+                                                   
+
+100%|██████████| 750/750 [4:28:37<00:00, 21.91s/it]
+100%|██████████| 750/750 [4:28:37<00:00, 21.49s/it]
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 6.0740740740740745e-06, 'num_tokens': 609452.0, 'completions/mean_length': 128.0, 'completions/min_length': 128.0, 'completions/max_length': 128.0, 'completions/clipped_ratio': 1.0, 'completions/mean_terminated_length': 0.0, 'completions/min_terminated_length': 0.0, 'completions/max_terminated_length': 0.0, 'rewards/reward_function/mean': 0.33512499928474426, 'rewards/reward_function/std': 0.16956963986158372, 'reward': 0.33512499928474426, 'reward_std': 0.16956963241100312, 'frac_reward_zero_std': 0.0, 'entropy': 1.4581365048885346, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 14.2}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 5.333333333333334e-06, 'num_tokens': 613612.0, 'completions/mean_length': 128.0, 'completions/min_length': 128.0, 'completions/max_length': 128.0, 'completions/clipped_ratio': 1.0, 'completions/mean_terminated_length': 0.0, 'completions/min_terminated_length': 0.0, 'completions/max_terminated_length': 0.0, 'rewards/reward_function/mean': 0.41275501251220703, 'rewards/reward_function/std': 0.17812900841236115, 'reward': 0.41275501251220703, 'reward_std': 0.17812900245189667, 'frac_reward_zero_std': 0.0, 'entropy': 1.3937625020742417, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 14.3}
+{'loss': -0.0, 'grad_norm': 0.0, 'learning_rate': 4.592592592592593e-06, 'num_tokens': 618132.0, 'completions/mean_length': 128.0, 'completions/min_length': 128.0, 'completions/max_length': 128.0, 'completions/clipped_ratio': 1.0, 'completions/mean_terminated_length': 0.0, 'completions/min_terminated_length': 0.0, 'completions/max_terminated_length': 0.0, 'rewards/reward_function/mean': 0.36199999451637266, 'rewards/reward_function/std': 0.15088662207126619, 'reward': 0.36199999451637266, 'reward_std': 0.1508866250514984, 'frac_reward_zero_std': 0.0, 'entropy': 1.572092542052269, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 14.4}
+{'loss': -0.0, 'grad_norm': 0.0, 'learning_rate': 3.851851851851852e-06, 'num_tokens': 622460.0, 'completions/mean_length': 128.0, 'completions/min_length': 128.0, 'completions/max_length': 128.0, 'completions/clipped_ratio': 1.0, 'completions/mean_terminated_length': 0.0, 'completions/min_terminated_length': 0.0, 'completions/max_terminated_length': 0.0, 'rewards/reward_function/mean': 0.3931275010108948, 'rewards/reward_function/std': 0.15330718755722045, 'reward': 0.3931275010108948, 'reward_std': 0.1533071905374527, 'frac_reward_zero_std': 0.0, 'entropy': 1.7165597438812257, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 14.5}
+{'loss': -0.0, 'grad_norm': 0.0, 'learning_rate': 3.111111111111111e-06, 'num_tokens': 626728.0, 'completions/mean_length': 128.0, 'completions/min_length': 128.0, 'completions/max_length': 128.0, 'completions/clipped_ratio': 1.0, 'completions/mean_terminated_length': 0.0, 'completions/min_terminated_length': 0.0, 'completions/max_terminated_length': 0.0, 'rewards/reward_function/mean': 0.3513749957084656, 'rewards/reward_function/std': 0.16061899662017823, 'reward': 0.3513749957084656, 'reward_std': 0.16061899662017823, 'frac_reward_zero_std': 0.0, 'entropy': 1.6301104515790938, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 14.6}
+{'loss': -0.0, 'grad_norm': 0.0, 'learning_rate': 2.3703703703703703e-06, 'num_tokens': 630876.0, 'completions/mean_length': 128.0, 'completions/min_length': 128.0, 'completions/max_length': 128.0, 'completions/clipped_ratio': 1.0, 'completions/mean_terminated_length': 0.0, 'completions/min_terminated_length': 0.0, 'completions/max_terminated_length': 0.0, 'rewards/reward_function/mean': 0.41349998116493225, 'rewards/reward_function/std': 0.21144334673881532, 'reward': 0.41349998116493225, 'reward_std': 0.21144333779811858, 'frac_reward_zero_std': 0.0, 'entropy': 1.470053219795227, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 14.7}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 1.6296296296296295e-06, 'num_tokens': 635036.0, 'completions/mean_length': 128.0, 'completions/min_length': 128.0, 'completions/max_length': 128.0, 'completions/clipped_ratio': 1.0, 'completions/mean_terminated_length': 0.0, 'completions/min_terminated_length': 0.0, 'completions/max_terminated_length': 0.0, 'rewards/reward_function/mean': 0.3838750123977661, 'rewards/reward_function/std': 0.16668989658355712, 'reward': 0.3838750123977661, 'reward_std': 0.16668989658355712, 'frac_reward_zero_std': 0.0, 'entropy': 1.3962197050452232, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 14.8}
+{'loss': -0.0, 'grad_norm': 0.0, 'learning_rate': 8.88888888888889e-07, 'num_tokens': 639412.0, 'completions/mean_length': 128.0, 'completions/min_length': 128.0, 'completions/max_length': 128.0, 'completions/clipped_ratio': 1.0, 'completions/mean_terminated_length': 0.0, 'completions/min_terminated_length': 0.0, 'completions/max_terminated_length': 0.0, 'rewards/reward_function/mean': 0.32899999618530273, 'rewards/reward_function/std': 0.13957642614841462, 'reward': 0.32899999618530273, 'reward_std': 0.13957643061876296, 'frac_reward_zero_std': 0.0, 'entropy': 1.625084286928177, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 14.9}
+{'loss': -0.0, 'grad_norm': 0.0, 'learning_rate': 1.4814814814814815e-07, 'num_tokens': 643800.0, 'completions/mean_length': 128.0, 'completions/min_length': 128.0, 'completions/max_length': 128.0, 'completions/clipped_ratio': 1.0, 'completions/mean_terminated_length': 0.0, 'completions/min_terminated_length': 0.0, 'completions/max_terminated_length': 0.0, 'rewards/reward_function/mean': 0.35725500285625456, 'rewards/reward_function/std': 0.15195784866809844, 'reward': 0.35725500285625456, 'reward_std': 0.15195785462856293, 'frac_reward_zero_std': 0.0, 'entropy': 1.4481876820325852, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 15.0}
+{'train_runtime': 16117.5034, 'train_samples_per_second': 0.047, 'train_steps_per_second': 0.047, 'train_loss': -1.2936070561408997e-09, 'epoch': 15.0}
+
+✅ Training Complete!
+📊 Final Reward Curve saved to 'reward_curve.png'============================================================
+🏋️ REGINTELENV GRPO TRAINING WITH MULTI-AGENT COALITION
+============================================================
+
+📊 Training for 100 episodes...
+⏱️ Estimated time: 30-45 minutes
+
+🚀 Starting training loop with Multi-Agent Coalition...
+
+📊 Episode 10/100 | Reward: 0.060 | Compliance: 0.600 | Resistance: 0.300
+📊 Episode 20/100 | Reward: 0.060 | Compliance: 0.600 | Resistance: 0.300
+📊 Episode 30/100 | Reward: 0.440 | Compliance: 0.600 | Resistance: 0.300
+📊 Episode 40/100 | Reward: 0.440 | Compliance: 0.600 | Resistance: 0.300
+📊 Episode 50/100 | Reward: 1.140 | Compliance: 0.600 | Resistance: 0.625
+📊 Episode 60/100 | Reward: 1.140 | Compliance: 0.600 | Resistance: 0.625
+📊 Episode 70/100 | Reward: 3.030 | Compliance: 0.900 | Resistance: 0.787
+📊 Episode 80/100 | Reward: 3.030 | Compliance: 0.900 | Resistance: 0.787
+📊 Episode 90/100 | Reward: 3.030 | Compliance: 0.900 | Resistance: 0.787
+📊 Episode 100/100 | Reward: 3.030 | Compliance: 0.900 | Resistance: 0.787
+
+============================================================
+✅ TRAINING COMPLETE!
+============================================================
+
+📊 Results:
+   Initial Compliance: 0.600
+   Final Compliance: 0.900
+   Improvement: +30.0%
+
+   Initial Resistance: 0.300
+   Final Resistance: 0.787
+   Improvement: +48.7%
+
+   Total Episodes: 100
