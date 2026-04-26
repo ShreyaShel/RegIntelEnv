@@ -1,10 +1,11 @@
 spec_version: 1
 name: regintelenv
-display_name: RegIntelEnv - Regulatory Intelligence Environment
+display_name: RegIntelEnv - Multi-Agent Regulatory Coalition Environment
 description: >
-  An OpenEnv environment where AI agents analyze company processes against
-  new regulations and flag non-compliance. Supports multi-step reasoning
-  with continuous reward signals and suggestion-based actions.
+  An OpenEnv environment where AI agents form multi-expert coalitions (GDPR,
+  EU AI Act, NIS2) to analyze company processes, resist adversarial stakeholder
+  pressure, and flag non-compliance. Supports regulatory drift, adversarial
+  injections, and continuous 4-dimensional reward scoring.
 type: space
 runtime: fastapi
 app: server.app:app
@@ -12,10 +13,13 @@ port: 7860
 
 metadata:
   author: RegIntelEnv Team
-  version: 0.1.0
+  version: 1.0.0
   tags:
+    - multi-agent
+    - coalition
     - compliance
     - regulatory
+    - adversarial
     - nlp
     - reasoning
     - rl
@@ -26,3 +30,4 @@ metadata:
   tasks: 3
   reward_type: continuous
   action_type: suggestion_based
+  theme: "Multi-Agent Interactions"

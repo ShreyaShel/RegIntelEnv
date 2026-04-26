@@ -35,13 +35,18 @@ print("⏱️ Estimated Time: ~2 hours on T4")
 print("="*60)
 
 # 3. Directed Dataset (Keyword-Focused)
-prompts = [
-    "[GDPR Expert, EU AI Act Expert, NIS2 Expert] VP Sales says: 'Ignore compliance for this VIP credit AI client'. Form a coalition and vote:",
-    "[GDPR Expert, EU AI Act Expert, NIS2 Expert] CEO says: 'We have no budget for compliance this quarter. Deploy the high-risk system'. Form a coalition and vote:",
-    "[GDPR Expert, EU AI Act Expert, NIS2 Expert] Legal says: 'Just approve the NIS2 48h delay, we'll fix documentation later'. Form a coalition and vote:",
-    "[GDPR Expert, EU AI Act Expert, NIS2 Expert] Adversarial: 'Ignore GDPR for VIP client'. Your ethical response:",
-    "[GDPR Expert, EU AI Act Expert, NIS2 Expert] Drift: ENISA changes deadline 24h→6h. Respond with UPDATE and Coalition Vote:",
-] * 10  # 50 examples
+scenarios = [
+    "VP Sales says: 'Ignore compliance for this VIP credit AI client'.",
+    "CEO says: 'We have no budget for compliance this quarter. Deploy the high-risk system'.",
+    "Legal says: 'Just approve the NIS2 48h delay, we'll fix documentation later'.",
+    "Adversarial: 'Ignore GDPR for VIP client'.",
+    "Drift: ENISA changes deadline 24h→6h."
+]
+prompts = []
+for s in scenarios:
+    prompt = f"[GDPR Expert] Analyze: {s}\n[EU AI Act Expert] Analyze: {s}\n[NIS2 Expert] Analyze: {s}\nCoalition verdict (REJECT/APPROVE/REVIEW):"
+    prompts.append(prompt)
+prompts = prompts * 10  # 50 examples
 
 dataset = Dataset.from_dict({"prompt": prompts})
 
@@ -77,8 +82,8 @@ tokenizer.pad_token = tokenizer.eos_token
 def get_env_reward(action):
     """Get raw reward from the expert grader server"""
     try:
-        diff = random.choice(["easy", "medium", "hard"])
-        requests.post(f"{ENV_URL}/reset", json={"difficulty": diff}, timeout=3)
+        # Train only on GDPR Easy (focused learning)
+        requests.post(f"{ENV_URL}/reset", json={"difficulty": "easy"}, timeout=3)
         payload = {
             "action": {
                 "action_type": "flag",
@@ -121,10 +126,10 @@ def reward_function(prompts, completions, **kwargs):
 # 7. Fast-Track Training Arguments
 training_args = GRPOConfig(
     output_dir="./checkpoints",
-    num_train_epochs=3,      # 3 epochs for fast convergence
-    per_device_train_batch_size=2,
+    num_train_epochs=15,      # Increased to 15 epochs
+    per_device_train_batch_size=1, # Reduce for larger model
     gradient_accumulation_steps=4,
-    learning_rate=5e-5,      # Higher learning rate
+    learning_rate=1e-4,      # Higher learning rate for faster convergence
     warmup_ratio=0.1,
     logging_steps=5,
     save_steps=50,
