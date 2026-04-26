@@ -203,7 +203,6 @@ The blog includes:
 - **Full Writeup**: [Blog.md](Blog.md)
 - **Training Notebook**: [Google Colab](https://colab.research.google.com/drive/1ucoY2Pb3ncEmZ2I-XyzrU-hXmqIck-Sk)
 - **Interactive Pitch Deck**: [demo_assets.html](demo_assets.html)
-- **Pitch Storyboard**: [storyboard.md](storyboard.md)
 
 ---
 

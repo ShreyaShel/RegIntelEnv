@@ -249,7 +249,6 @@ We injected mid-episode regulatory changes:
 - **Training Notebook:** https://colab.research.google.com/drive/1ucoY2Pb3ncEmZ2I-XyzrU-hXmqIck-Sk
 - **GitHub:** https://github.com/ShreyaShel/RegIntelEnv
 - **Interactive Pitch Deck:** [demo_assets.html](demo_assets.html)
-- **Pitch Storyboard:** [storyboard.md](storyboard.md)
 
 ---
 
