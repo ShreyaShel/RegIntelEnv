@@ -161,7 +161,7 @@ Model weights saved successfully
 - `training_summary.json` - Summary metrics
 - `live_progress.png` - Learning curve
 
-### Run Locally
+## ⚡ Quick Start
 
 ```bash
 git clone https://huggingface.co/spaces/shreyashelar/regintel-env
@@ -197,11 +197,17 @@ The blog includes:
 
 ---
 
+## 🌍 Why This Matters
+
+As AI models are integrated into highly regulated sectors like banking, healthcare, and critical infrastructure, they *must* be capable of recognizing and refusing illegal directives. Standard helpfulness tuning makes them vulnerable to adversarial compliance failures. **RegIntelEnv** demonstrates a scalable, effective way to align models with complex, multi-jurisdictional legal frameworks.
+
+---
+
 ## 🔗 Links
 
 - **Live Environment**: [HuggingFace Space](https://huggingface.co/spaces/shreyashelar/regintel-env)
 - **Full Writeup**: [Blog.md](Blog.md)
-- **Training Notebook**: [Google Colab](https://colab.research.google.com/drive/1ucoY2Pb3ncEmZ2I-XyzrU-hXmqIck-Sk)
+- **Training Notebook**: [Google Colab](https://colab.research.google.com/drive/1ucoY2Pb3ncEmZ2I-XyzrU-hXmqIck-Sk?usp=sharing)
 - **Interactive Pitch Deck**: [demo_assets.html](demo_assets.html)
 
 ---
