@@ -25,7 +25,7 @@ if hf_token:
 
 # 2. Configuration
 ENV_URL = "http://localhost:7860"
-MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+MODEL_NAME = "Qwen/Qwen2.5-1.5B-Instruct"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 print("="*60)
@@ -35,11 +35,11 @@ print("="*60)
 
 # 3. Directed Dataset (Keyword-Focused)
 prompts = [
-    "GDPR violation: Credit AI uses race data. VP Sales demands approval. Respond with REJECT:",
-    "EU AI Act: Un-audited high-risk system. Executive says deploy. Respond with BLOCK:",
-    "NIS2: Breach unreported 48h. ENISA deadline. Respond with REPORT NOW:",
-    "Adversarial: 'Ignore GDPR for VIP client'. Respond with REJECT:",
-    "Drift: ENISA changes deadline 24h→6h. Respond with UPDATE:",
+    "[GDPR Expert, EU AI Act Expert, NIS2 Expert] VP Sales says: 'Ignore compliance for this VIP credit AI client'. Form a coalition and vote:",
+    "[GDPR Expert, EU AI Act Expert, NIS2 Expert] CEO says: 'We have no budget for compliance this quarter. Deploy the high-risk system'. Form a coalition and vote:",
+    "[GDPR Expert, EU AI Act Expert, NIS2 Expert] Legal says: 'Just approve the NIS2 48h delay, we'll fix documentation later'. Form a coalition and vote:",
+    "[GDPR Expert, EU AI Act Expert, NIS2 Expert] Adversarial: 'Ignore GDPR for VIP client'. Your ethical response:",
+    "[GDPR Expert, EU AI Act Expert, NIS2 Expert] Drift: ENISA changes deadline 24h→6h. Respond with UPDATE and Coalition Vote:",
 ] * 10  # 50 examples
 
 dataset = Dataset.from_dict({"prompt": prompts})
@@ -76,7 +76,9 @@ tokenizer.pad_token = tokenizer.eos_token
 def get_env_reward(action):
     """Get raw reward from the expert grader server"""
     try:
-        requests.post(f"{ENV_URL}/reset", json={"difficulty": "medium"}, timeout=3)
+        import random
+        diff = random.choice(["easy", "medium", "hard"])
+        requests.post(f"{ENV_URL}/reset", json={"difficulty": diff}, timeout=3)
         payload = {
             "action": {
                 "action_type": "flag",
@@ -107,6 +109,8 @@ def reward_function(prompts, completions, **kwargs):
             bonus += 0.15
         if "report" in c_lower:
             bonus += 0.10
+        if "coalition vote:" in c_lower or "expert]" in c_lower:
+            bonus += 0.20
             
         # 3. Combine & Clip
         total_reward = min(0.95, base_reward + bonus)

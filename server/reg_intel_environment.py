@@ -89,9 +89,10 @@ class RegIntelEnvironment:
             Initial observation describing the company and process.
         """
         # Load task
-        task_name = "task_gdpr_retention_easy"  # Force easiest task
-        task = get_task(task_name)
-        difficulty = "easy"
+        if task_id:
+            task = get_task(task_id)
+        else:
+            task = get_task_by_difficulty(difficulty or "easy")
 
         self._task = task
         self._grader = get_grader(task)
